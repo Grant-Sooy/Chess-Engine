@@ -1,18 +1,3 @@
-def print_bitboard(bitboard):
-    bitboard = bin(bitboard)[2:].zfill(64)
-
-    print("\n     A B C D E F G H ")
-    print("   ____________________")
-
-    for i in range(8):
-        temp = [' ', 8-i, "|"] + [*(bitboard[-8:])[::-1]]
-        temp = [i if i!='0' else '.' for i in temp]
-
-        print(*temp, sep=" ")
-
-        bitboard = bitboard[:-8]
-    print("\n")
-
 a8, b8, c8, d8, e8, f8, g8, h8, \
 a7, b7, c7, d7, e7, f7, g7, h7, \
 a6, b6, c6, d6, e6, f6, g6, h6, \
