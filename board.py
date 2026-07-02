@@ -69,14 +69,5 @@ def update_bitboards(B):
 
 
 B = new_board()
-
-# 'e4'
-B[Wpawn] = set_bit(B[Wpawn], e4)
-B[Wpawn] = remove_bit(B[Wpawn], e2)
-
-# 'e5'
-B[Bpawn] = set_bit(B[Bpawn], e5)
-B[Bpawn] = remove_bit(B[Bpawn], e7)
-
-update_bitboards(B)
+print(B[Wpawn])
 print_board(B)
