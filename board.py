@@ -36,7 +36,7 @@ def new_board():
             18446462598732840960 | 65535, # all board pieces
         ]
 
-Wpawn, Bpawn, Wrook, Brook, Wknight, Bknight, Wbishop, Bbishop, Wqueen, Bqueen, Wking, Bking, white, black, all = range(15)
+Wpawn, Bpawn, Wrook, Brook, Wknight, Bknight, Wbishop, Bbishop, Wqueen, Bqueen, Wking, Bking, white, black, all_boards = range(15)
 
 piece_names = ['P', 'p', 'R', 'r', 'N', 'n', 'B', 'b', 'Q', 'q', 'K', 'k']
 
@@ -71,7 +71,7 @@ def update_bitboards(B):
     # union of other bitboards
     B[white] = B[Wpawn] | B[Wrook] | B[Wknight] | B[Wbishop] | B[Wking] | B[Wqueen]
     B[black] = B[Bpawn] | B[Brook] | B[Bknight] | B[Bbishop] | B[Bking] | B[Bqueen]
-    B[all] = B[white] | B[black]
+    B[all_boards] = B[white] | B[black]
 
 
 B = new_board()

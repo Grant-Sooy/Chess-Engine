@@ -1,6 +1,6 @@
 import pygame
 
-from board import piece_names, new_board, ctz, remove_bit, get_bit, set_bit, get_piece_at, update_bitboards
+import board
 
 #--------------------------------------------------------------------------------
 # PYGAME INITIALIZATION AND TIME KEEPING
@@ -30,7 +30,7 @@ window = pygame.display.set_mode((window_width, window_height), pygame.RESIZABLE
 #--------------------------------------------------------------------------------
 
 piece_images = {}
-for char in piece_names:
+for char in board.piece_names:
     if char.isupper():
         filename = 'w' + char + '.png'
     else:
@@ -39,7 +39,7 @@ for char in piece_names:
     piece_images[char] = pygame.image.load(f'assets/{filename}')
     piece_images[char] = pygame.transform.scale(piece_images[char], (virtual_sq, virtual_sq))
 
-B = new_board() # Defines the initial board state
+B = board.new_board() # Defines the initial board state
 
 selected_square = None
 selected_piece = None
@@ -68,13 +68,13 @@ while run:
                 print(row,col)
                 square = row * 8 + col
                 if selected_square is None:
-                    if get_bit(B[all], square) == 1:
+                    if board.get_bit(B[board.all_boards], square) == 1:
                         selected_square = square
-                        selected_piece = get_piece_at(B, square)
+                        selected_piece = board.get_piece_at(B, square)
                 else:
-                    B[selected_piece] = set_bit(B[selected_piece], square)
-                    B[selected_piece] = remove_bit(B[selected_piece], selected_square)
-                    update_bitboards(B)
+                    B[selected_piece] = board.set_bit(B[selected_piece], square)
+                    B[selected_piece] = board.remove_bit(B[selected_piece], selected_square)
+                    board.update_bitboards(B)
                     selected_square = None
                     selected_piece = None
 
@@ -90,12 +90,12 @@ while run:
 
     for i in range(12):
         b = B[i]
-        char = piece_names[i]
+        char = board.piece_names[i]
         image = piece_images[char]
 
         while b:
-            square = ctz(b)
-            b = remove_bit(b, square)
+            square = board.ctz(b)
+            b = board.remove_bit(b, square)
 
             col = square % 8
             row = square // 8
