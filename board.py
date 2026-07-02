@@ -19,6 +19,12 @@ def remove_bit(bitboard, square):
 def ctz(bitboard):
     return (bitboard & -bitboard).bit_length() - 1
 
+def get_piece_at(B, square):
+    for i in range(12):
+        if get_bit(B[i], square):
+            return i
+    return None
+
 def new_board():
     return [ 71776119061217280, 65280,     # pawns (white, black)
             9295429630892703744, 129,     # rooks
