@@ -1,6 +1,6 @@
 import pygame
 
-import board
+import logic.board as board
 
 #--------------------------------------------------------------------------------
 # PYGAME INITIALIZATION AND TIME KEEPING

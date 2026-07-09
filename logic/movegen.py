@@ -1,6 +1,6 @@
 import random
 
-import board
+import logic.board as board
 
 #--------------------------------------------------------------------------------
 # PIECE MOVEMENT LOGIC
