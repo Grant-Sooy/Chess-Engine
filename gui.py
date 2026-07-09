@@ -110,7 +110,6 @@ while run:
     window.blit(scaled_surface, (x_offset, y_offset))
 
     pygame.display.flip()
-    
     dt = clock.tick(60) / 1000
 
 pygame.quit()

@@ -42,14 +42,14 @@ piece_names = ['P', 'p', 'R', 'r', 'N', 'n', 'B', 'b', 'Q', 'q', 'K', 'k']
 
 
 def print_board(B):
-    output = [' ' for i in range(64)] 
+    output = [' ' for i in range(64)]
 
     # scan the first 12 bitboards for pieces
-    for i in range(12): 
+    for i in range(12):
         b = B[i]
 
-        # repeatedly find and remove least significant bit from bitboard 
-        while b: 
+        # repeatedly find and remove least significant bit from bitboard
+        while b:
             square = ctz(b)
             b = remove_bit(b, square)
             output[square] = piece_names[i] # add piece to output string
@@ -59,11 +59,11 @@ def print_board(B):
     print ("    __________________ ")
 
     for i in range(8):
-        # need to print upside down and back to front to 
+        # need to print upside down and back to front to
         # ensure correct formatting
         temp = [' ', 8-i, "|"] + output[:8]
-        print(*temp, sep=" ") 
-        output = output[8:] 
+        print(*temp, sep=" ")
+        output = output[8:]
 
     print ("\n")
 

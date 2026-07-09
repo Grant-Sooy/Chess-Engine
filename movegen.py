@@ -1,4 +1,5 @@
 import random
+
 import board
 
 #--------------------------------------------------------------------------------
@@ -18,40 +19,40 @@ def generate_occupancy(index, mask):
     while temp_mask:
         square = board.ctz(temp_mask)
         temp_mask = board.remove_bit(temp_mask, square)
-        
+
         if index & (1 << bit_count):
             occupancy = board.set_bit(occupancy, square)
-        
+
         bit_count += 1
-    
+
     return occupancy
 
 def find_magic_number(square, mask, attacks_fn):
     N = bin(mask).count('1')
     num_variations = 1 << N
-    
+
     occupancies = []
     attacks = []
     for index in range(num_variations):
         occ = generate_occupancy(index, mask)
         occupancies.append(occ)
         attacks.append(attacks_fn(square, occ))
-    
+
     while True:
         magic = random.getrandbits(64) & random.getrandbits(64) & random.getrandbits(64)
-        
+
         table = [None] * num_variations
         collision = False
-        
+
         for i in range(num_variations):
             idx = ((occupancies[i] * magic) & 0xFFFFFFFFFFFFFFFF) >> (64 - N)
-            
+
             if table[idx] is None:
                 table[idx] = attacks[i]
             elif table[idx] != attacks[i]:
                 collision = True
                 break
-        
+
         if not collision:
             return magic, table
 
