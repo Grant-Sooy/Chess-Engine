@@ -64,17 +64,25 @@ def generate_knight_attacks(square: int) -> int:
     attacks = 0
     bitboard = 1 << square
 
-    if bitboard & NOT_A_FILE: attacks |= (bitboard << 15)
-    if bitboard & NOT_H_FILE: attacks |= (bitboard << 17)
+    if bitboard & NOT_A_FILE:
+        attacks |= (bitboard << 15)
+    if bitboard & NOT_H_FILE:
+        attacks |= (bitboard << 17)
 
-    if bitboard & NOT_AB_FILE: attacks |= (bitboard << 6)
-    if bitboard & NOT_GH_FILE: attacks |= (bitboard << 10)
+    if bitboard & NOT_AB_FILE:
+        attacks |= (bitboard << 6)
+    if bitboard & NOT_GH_FILE:
+        attacks |= (bitboard << 10)
 
-    if bitboard & NOT_A_FILE: attacks |= (bitboard >> 17)
-    if bitboard & NOT_H_FILE: attacks |= (bitboard >> 15)
+    if bitboard & NOT_A_FILE:
+        attacks |= (bitboard >> 17)
+    if bitboard & NOT_H_FILE:
+        attacks |= (bitboard >> 15)
 
-    if bitboard & NOT_AB_FILE: attacks |= (bitboard >> 10)
-    if bitboard & NOT_GH_FILE: attacks |= (bitboard >> 6)
+    if bitboard & NOT_AB_FILE:
+        attacks |= (bitboard >> 10)
+    if bitboard & NOT_GH_FILE:
+        attacks |= (bitboard >> 6)
 
     return attacks & 0xFFFFFFFFFFFFFFFF
 
@@ -88,16 +96,24 @@ def generate_king_attacks(square: int) -> int:
     attacks = 0
     bitboard = 1 << square
 
-    if bitboard & NOT_A_FILE: attacks |= (bitboard >> 1)
-    if bitboard & NOT_A_FILE: attacks |= (bitboard << 7)
-    if bitboard & NOT_A_FILE: attacks |= (bitboard >> 9)
+    if bitboard & NOT_A_FILE:
+        attacks |= (bitboard >> 1)
+    if bitboard & NOT_A_FILE:
+        attacks |= (bitboard << 7)
+    if bitboard & NOT_A_FILE:
+        attacks |= (bitboard >> 9)
 
-    if bitboard & NOT_H_FILE: attacks |= (bitboard << 1)
-    if bitboard & NOT_H_FILE: attacks |= (bitboard >> 7)
-    if bitboard & NOT_H_FILE: attacks |= (bitboard << 9)
+    if bitboard & NOT_H_FILE:
+        attacks |= (bitboard << 1)
+    if bitboard & NOT_H_FILE:
+        attacks |= (bitboard >> 7)
+    if bitboard & NOT_H_FILE:
+        attacks |= (bitboard << 9)
 
-    if bitboard: attacks |= (bitboard >> 8)
-    if bitboard: attacks |= (bitboard << 8)
+    if bitboard:
+        attacks |= (bitboard >> 8)
+    if bitboard:
+        attacks |= (bitboard << 8)
 
     return attacks & 0xFFFFFFFFFFFFFFFF
 
