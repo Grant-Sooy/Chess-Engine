@@ -146,3 +146,59 @@ def king_moves(B, color):
 
     return moves
 
+#--------------------------------------------------------------------------------
+# PAWN MOVES
+#--------------------------------------------------------------------------------
+
+def pawn_moves(B, color):
+    moves = []
+
+    if color == board.white:
+        pawns = B[board.Wpawn]
+        p = pawns
+        while p:
+            square = board.ctz(p)
+            p = board.remove_bit(p, square)
+
+            one_forward = square - 8
+            if not (B[board.all_boards] & (1 << one_forward)):
+                moves.append((square, one_forward))
+
+                two_forward = square - 16
+                rank = square // 8
+                if rank == 6 and not (B[board.all_boards] & (1 << two_forward)):
+                    moves.append((square, two_forward))
+
+            valid_squares = atktbls.WHITE_PAWN_ATTACKS[square] & B[board.black]
+
+            destinations = valid_squares
+            while destinations:
+                dest = board.ctz(destinations)
+                destinations = board.remove_bit(destinations, dest)
+                moves.append((square, dest))
+
+    else:
+        pawns = B[board.Bpawn]
+        p = pawns
+        while p:
+            square = board.ctz(p)
+            p = board.remove_bit(p, square)
+
+            one_forward = square + 8
+            if not (B[board.all_boards] & (1 << one_forward)):
+                moves.append((square, one_forward))
+
+                two_forward = square + 16
+                rank = square // 8
+                if rank == 1 and not (B[board.all_boards] & (1 << two_forward)):
+                    moves.append((square, two_forward))
+
+            valid_squares = atktbls.BLACK_PAWN_ATTACKS[square] & B[board.white]
+
+            destinations = valid_squares
+            while destinations:
+                dest = board.ctz(destinations)
+                destinations = board.remove_bit(destinations, dest)
+                moves.append((square, dest))
+
+    return moves
