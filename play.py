@@ -39,7 +39,7 @@ for char in board.piece_names:
     piece_images[char] = pygame.image.load(f'assets/{filename}')
     piece_images[char] = pygame.transform.scale(piece_images[char], (virtual_sq, virtual_sq))
 
-B = board.new_board() # Defines the initial board state
+B = board.new_board()
 
 selected_square = None
 selected_piece = None
