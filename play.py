@@ -73,7 +73,6 @@ while run:
                 mouse_x, mouse_y = event.pos
                 col = int((mouse_x - x_offset) // window_sq)
                 row = int((mouse_y - y_offset) // window_sq)
-                print(row,col)
                 square = row * 8 + col
                 if selected_square is None:
                     friendly = B[board.white] if current_color == board.white else B[board.black]
