@@ -1,5 +1,5 @@
-import atktbls
-import board
+import logic.atktbls as atktbls
+import logic.board as board
 
 #--------------------------------------------------------------------------------
 # KNIGHT MOVES

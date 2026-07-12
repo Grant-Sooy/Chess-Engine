@@ -1,6 +1,7 @@
 import pygame
 
 import logic.board as board
+import logic.moves as moves
 
 #--------------------------------------------------------------------------------
 # PYGAME INITIALIZATION AND TIME KEEPING
@@ -44,6 +45,13 @@ B = board.new_board()
 selected_square = None
 selected_piece = None
 
+move_count = 1 # odd is white even is black
+
+legal_moves = moves.generate_legal_moves(B, board.white)
+valid_destinations = []
+
+current_color = board.white
+
 #--------------------------------------------------------------------------------
 # BEGIN GAME LOOP
 #--------------------------------------------------------------------------------
@@ -68,15 +76,24 @@ while run:
                 print(row,col)
                 square = row * 8 + col
                 if selected_square is None:
-                    if board.get_bit(B[board.all_boards], square) == 1:
+                    friendly = B[board.white] if current_color == board.white else B[board.black]
+                    if board.get_bit(friendly, square):
                         selected_square = square
                         selected_piece = board.get_piece_at(B, square)
+                        valid_destinations = [move[1] for move in legal_moves if move[0] == selected_square]
                 else:
-                    B[selected_piece] = board.set_bit(B[selected_piece], square)
-                    B[selected_piece] = board.remove_bit(B[selected_piece], selected_square)
-                    board.update_bitboards(B)
-                    selected_square = None
-                    selected_piece = None
+                    if square in valid_destinations:
+                        moves.make_move(B, (selected_square, square))
+                        move_count += 1
+                        current_color = board.white if move_count % 2 == 1 else board.black
+                        legal_moves = moves.generate_legal_moves(B, current_color)
+                        selected_square = None
+                        selected_piece = None
+                        valid_destinations = []
+                    else:
+                        selected_square = None
+                        selected_piece = None
+                        valid_destinations = []
 
     virtual_screen.fill((50, 50, 50))
     window.fill((30, 30, 30))
